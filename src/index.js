@@ -1,8 +1,31 @@
+import './index.css';
+
+import * as serviceWorker from './serviceWorker';
+
+// apollo
+import ApolloClient from 'apollo-boost';
+import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { gql } from "apollo-boost";
+
+// or you can use `import gql from 'graphql-tag';` instead
+
+
+const client = new ApolloClient({
+  uri: 'http://localhost:3000/graphql',
+});
+
+client
+  .query({
+    query: gql`
+      {
+        helloWorld
+      }
+    `
+  })
+  .then(result => console.log(result));
+
 
 ReactDOM.render(
   <React.StrictMode>
