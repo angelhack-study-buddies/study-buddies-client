@@ -12,18 +12,30 @@ const Profile: React.FC<ProfileProps> = () => {
     streak: 30,
   }
 
+  const spanStyle = {
+    marginLeft: 8,
+    marginRight: 8,
+    color: 'gray',
+  }
+
+  const imageStyle = {
+    borderRadius: 64, verticalAlign: 'middle'
+  }
+
   return (
     <Fragment>
+      <div style={{
+        position: 'absolute', top: 0, left: 0,
+      }}>
+        <Button onClick={() => navigate(-1)}>&lt;</Button>
+      </div>
       <Row>
         <Col m={12} s={6}>
-          <span>
-            <b>following</b>
-          </span>
-          <span>{props.following}</span>&nbsp;
-          <span>
-            <b>followers</b>
-          </span>
-          <span>{props.followers}</span>
+          <img src="https://avatars2.githubusercontent.com/u/53922851?s=128" style={imageStyle} />
+          <span style={spanStyle}><b>following</b></span>
+          <span><b>{props.following}</b></span>&nbsp;
+          <span style={spanStyle}><b>followers</b></span>
+          <span><b>{props.followers}</b></span>
         </Col>
       </Row>
       <div className="Streak">
