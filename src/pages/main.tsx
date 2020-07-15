@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
-import { RouteComponentProps } from '@reach/router';
+import React, { Fragment } from 'react'
+import { RouteComponentProps } from '@reach/router'
 
-import { Button } from 'react-materialize';
-import { navigate } from '@reach/router';
+import { Button } from 'react-materialize'
+import { navigate } from '@reach/router'
 
 interface MainProps extends RouteComponentProps {}
 
@@ -19,7 +19,7 @@ const Main: React.FC<MainProps> = () => {
       />
       main
     </Fragment>
-  );
+  )
 }
 
-export default Main;
+export default Main

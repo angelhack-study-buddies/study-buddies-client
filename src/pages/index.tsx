@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
-import { Router } from '@reach/router';
+import React, { Fragment } from 'react'
+import { Router } from '@reach/router'
 
-import Main from './main';
-import Profile from './profile';
+import Main from './main'
+import Profile from './profile'
 
 export default function Pages() {
   return (
@@ -12,5 +12,5 @@ export default function Pages() {
         <Profile path="/profile" />
       </Router>
     </Fragment>
-  );
+  )
 }
