@@ -4,6 +4,7 @@ import * as serviceWorker from './serviceWorker';
 
 // apollo
 import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
 import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -28,9 +29,9 @@ client
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <ApolloProvider client={client}>
     <App />
-  </React.StrictMode>,
+  </ApolloProvider>,
   document.getElementById('root')
 );
 
