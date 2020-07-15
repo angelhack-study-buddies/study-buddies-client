@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react'
-import { RouteComponentProps } from '@reach/router'
+import { RouteComponentProps, navigate } from '@reach/router'
 
 import { Button } from 'react-materialize'
-import { navigate } from '@reach/router'
 
 interface MainProps extends RouteComponentProps {}
 
