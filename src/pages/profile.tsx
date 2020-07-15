@@ -1,14 +1,10 @@
-import React, { Fragment } from 'react';
-import { RouteComponentProps } from '@reach/router';
+import React, { Fragment } from 'react'
+import { RouteComponentProps } from '@reach/router'
 
 interface ProfileProps extends RouteComponentProps {}
 
 const Profile: React.FC<ProfileProps> = () => {
-  return (
-    <Fragment>
-      profile
-    </Fragment>
-  );
+  return <Fragment>profile</Fragment>
 }
 
-export default Profile;
+export default Profile
