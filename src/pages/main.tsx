@@ -4,6 +4,9 @@ import { RouteComponentProps } from '@reach/router'
 import { Button } from 'react-materialize'
 import { navigate } from '@reach/router'
 
+import Recommendations from '../components/recommendations';
+import Favorites from '../components/favorites';
+
 interface MainProps extends RouteComponentProps {}
 
 const Main: React.FC<MainProps> = () => {
@@ -17,6 +20,8 @@ const Main: React.FC<MainProps> = () => {
         node="button"
         waves="light"
       />
+      <Recommendations />
+      <Favorites />
       main
     </Fragment>
   )
