@@ -22,6 +22,9 @@ const App = () => {
   return (
     <div className="App">
       {data?.helloWorld}
+      <header>
+        <img src={logo} className="App-logo" alt="logo" />
+      </header>
       <Pages />
     </div>
   )
