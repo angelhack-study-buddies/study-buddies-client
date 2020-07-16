@@ -2,24 +2,17 @@ import React, { Fragment } from 'react'
 import { RouteComponentProps, navigate } from '@reach/router'
 
 import { Row, Col, Button, Icon } from 'react-materialize'
+import Follow from '../components/follow'
+
+const imageStyle = {
+  borderRadius: 64, verticalAlign: 'middle'
+}
 
 interface ProfileProps extends RouteComponentProps {}
 
 const Profile: React.FC<ProfileProps> = () => {
   const props = {
-    following: 100,
-    followers: 100,
     streak: 30,
-  }
-
-  const spanStyle = {
-    marginLeft: 8,
-    marginRight: 8,
-    color: 'gray',
-  }
-
-  const imageStyle = {
-    borderRadius: 64, verticalAlign: 'middle'
   }
 
   return (
@@ -31,11 +24,8 @@ const Profile: React.FC<ProfileProps> = () => {
       </div>
       <Row>
         <Col m={12} s={6}>
-          <img src="https://avatars2.githubusercontent.com/u/53922851?s=128" style={imageStyle} />
-          <span style={spanStyle}><b>following</b></span>
-          <span><b>{props.following}</b></span>&nbsp;
-          <span style={spanStyle}><b>followers</b></span>
-          <span><b>{props.followers}</b></span>
+          <img src={'https://avatars2.githubusercontent.com/u/53922851?s=128'} style={imageStyle} />
+          <Follow following={100} followers={100} />
         </Col>
       </Row>
       <div className="Streak">
