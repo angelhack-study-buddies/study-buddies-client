@@ -46,31 +46,31 @@ const Profile: React.FC<ProfileProps> = () => {
       </div>
       <div className="week">
         <Col m={12} s={6}>
-          <Button floating large node="button" waves="light">
+          <Button floating small node="button" waves="light">
             S
           </Button>
           &nbsp;&nbsp;
-          <Button floating large node="button" waves="light">
+          <Button floating small node="button" waves="light">
             M
           </Button>
           &nbsp;&nbsp;
-          <Button floating large node="button" waves="light">
+          <Button floating small node="button" waves="light">
             T
           </Button>
           &nbsp;&nbsp;
-          <Button floating large node="button" waves="light">
+          <Button floating small node="button" waves="light">
             W
           </Button>
           &nbsp;&nbsp;
-          <Button floating large node="button" waves="light">
+          <Button floating small node="button" waves="light">
             T
           </Button>
           &nbsp;&nbsp;
-          <Button floating large node="button" waves="light">
+          <Button floating small node="button" waves="light">
             F
           </Button>
           &nbsp;&nbsp;
-          <Button floating large node="button" waves="light">
+          <Button floating small node="button" waves="light">
             S
           </Button>
           &nbsp;&nbsp;
