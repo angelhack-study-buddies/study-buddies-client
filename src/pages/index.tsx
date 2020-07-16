@@ -3,6 +3,7 @@ import { Router } from '@reach/router'
 
 import Main from './main'
 import Profile from './profile'
+import AddContent from './add-content'
 
 export default function Pages() {
   return (
@@ -10,6 +11,7 @@ export default function Pages() {
       <Router primary={false} component={Fragment}>
         <Main default />
         <Profile path="/profile" />
+        <AddContent path="/add" />
       </Router>
     </Fragment>
   )

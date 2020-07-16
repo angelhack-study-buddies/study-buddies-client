@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
-import { RouteComponentProps } from '@reach/router'
+import { RouteComponentProps, navigate } from '@reach/router'
 
-import { Row, Col, Button } from 'react-materialize'
+import { Row, Col, Button, Icon } from 'react-materialize'
 
 interface ProfileProps extends RouteComponentProps {}
 
@@ -76,6 +76,19 @@ const Profile: React.FC<ProfileProps> = () => {
           &nbsp;&nbsp;
         </Col>
       </div>
+      <Button
+        className="green"
+        fab={{
+          direction: 'top',
+          toolbarEnabled: true
+        }}
+        floating
+        icon={<Icon>+</Icon>}
+        large
+        node="button"
+        onClick={() => navigate('/add')}
+      >
+      </Button>
     </Fragment>
   )
 }
