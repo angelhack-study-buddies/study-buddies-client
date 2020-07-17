@@ -45,3 +45,9 @@ const App = () => {
 
 export default App
 ```
+
+## Environment variables
+
+- `REACT_APP_`: custom variables need this prefix
+- use `process.env.REACT_APP_{env_var_name}`
+  🧚‍♀️don't install dotenv package
