@@ -16,7 +16,6 @@
     "apollo-client": "^2.6.10",
     "apollo-link": "^1.2.14",
     "apollo-link-http": "^1.5.17",
-    "dotenv": "^8.2.0",
     "graphql": "^15.3.0",
     "materialize-css": "^1.0.0-rc.2",
     "react": "^16.13.1",
