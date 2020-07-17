@@ -12,11 +12,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { gql } from 'apollo-boost'
 
-const SERVER_BASE_URL = 'http://localhost:3000'
-
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: `${SERVER_BASE_URL}/graphql`,
+    uri: `${process.env.SERVER_BASE_URL}/graphql`,
     credentials: 'include',
   }),
   cache: new InMemoryCache(),
