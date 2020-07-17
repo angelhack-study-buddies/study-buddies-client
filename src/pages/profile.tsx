@@ -3,6 +3,7 @@ import { RouteComponentProps, navigate } from '@reach/router'
 
 import { Row, Col, Button, Icon } from 'react-materialize'
 import Follow from '../components/follow'
+import LogoutButton from '../components/logout-button'
 
 const imageStyle = {
   borderRadius: 64, verticalAlign: 'middle'
@@ -24,9 +25,12 @@ const Profile: React.FC<ProfileProps> = () => {
       </div>
       <Row>
         <Col m={12} s={6}>
-          <img src={'https://avatars2.githubusercontent.com/u/53922851?s=128'} style={imageStyle} />
+          <img src={'https://avatars2.githubusercontent.com/u/53922851?s=128'} style={imageStyle} alt="avatar" />
           <Follow following={100} followers={100} />
         </Col>
+      </Row>
+      <Row>
+        <LogoutButton />
       </Row>
       <div className="Streak">
         <Row>
