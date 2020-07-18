@@ -12,7 +12,7 @@ const ProfileImage: React.FC<ProfileImageProps> = (props) => {
   return (
     props.isLoggedIn
       ? <Button
-          icon={<img src="https://avatars2.githubusercontent.com/u/53922851?s=64" alt="avatar" />}
+          icon={<img width={92} src="https://avatars2.githubusercontent.com/u/53922851?s=92" alt="avatar" />}
           onClick={() => navigate('/profile')}
           floating
           large
