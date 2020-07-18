@@ -3,16 +3,19 @@ import { RouteComponentProps, navigate } from '@reach/router'
 import { Button } from 'react-materialize'
 
 import avatar from './avatar-person.svg'
+import { User } from '../generated/graphql'
 
 interface ProfileImageProps extends RouteComponentProps {
-  isLoggedIn: boolean
+  currentUser: User
 }
 
 const ProfileImage: React.FC<ProfileImageProps> = (props) => {
+  const { currentUser } = props
+  const profileURL = currentUser?.profileURL
   return (
-    props.isLoggedIn
+    props.currentUser
       ? <Button
-          icon={<img width={92} src="https://avatars2.githubusercontent.com/u/53922851?s=92" alt="avatar" />}
+          icon={<img width={92} src={profileURL!} alt="avatar" />}
           onClick={() => navigate('/profile')}
           floating
           large

@@ -3,9 +3,9 @@
 }
 
 .App-logo {
-  height: 8vmin;
+  height: 6vmin;
   pointer-events: none;
-  margin: 6vmin 0;
+  margin: 4vmin 0;
 }
 
 .App-header {
@@ -30,13 +30,6 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.btn {
-  color: white;
-  background-color: #005DE9;
-  border-radius: 6px;
-  width: 320px;
 }
 
 h5 {

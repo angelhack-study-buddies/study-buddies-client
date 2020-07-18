@@ -10,27 +10,34 @@ import ProfileImage from '../components/profile-image'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
-const IS_LOGGED_IN = gql`
-  query IsUserLoggedIn {
-    userIsLoggedIn
+const CURRENT_USER = gql`
+  query {
+    currentUser {
+      id
+      name
+      profileURL
+      consecutiveStudyDays
+    }
   }
 `
 
 interface MainProps extends RouteComponentProps {}
 
 const Main: React.FC<MainProps> = () => {
-  const { data } = useQuery(IS_LOGGED_IN)
-  const isLoggedIn = data?.userIsLoggedIn
+  const { data } = useQuery(CURRENT_USER)
+  const currentUser = data?.currentUser
   return (
     <Fragment>
-      <Row>
-        <Col s={4}>
-          <ProfileImage isLoggedIn={isLoggedIn} />
-        </Col>
-        <Col s={8}>
-          {isLoggedIn ? <Follow following={99} followers={99} /> : null}
-        </Col>
-      </Row>
+      <dl style={{marginTop: 20}}>
+        <Row>
+          <Col s={4}>
+            <ProfileImage currentUser={currentUser} />
+          </Col>
+          <Col s={8}>
+            {currentUser ? <Follow following={99} followers={99} /> : null}
+          </Col>
+        </Row>
+      </dl>
       <Recommendations />
       <Favorites />
       main
