@@ -27,7 +27,14 @@ interface ProfileProps extends RouteComponentProps {}
 const Profile: React.FC<ProfileProps> = () => {
   const { data } = useQuery(CURRENT_USER)
   const currentUser = data?.currentUser
-  const streak = currentUser?.consecutiveStudyDays?.length || 5
+  const streak = currentUser?.consecutiveStudyDays?.length || 0
+  let dotw = -1
+  if (currentUser?.consecutiveStudyDays) {
+    const lastDay = new Date(currentUser.consecutiveStudyDays);
+    dotw = lastDay.getDay();
+    // Sunday - Saturday : 0 - 6
+  }
+
   return (
     <Fragment>
       <BackButton />
@@ -55,34 +62,13 @@ const Profile: React.FC<ProfileProps> = () => {
       </div>
       <div className="week">
         <Col m={12} s={6}>
-          <Button floating small node="button" waves="light">
-            S
-          </Button>
-          &nbsp;&nbsp;
-          <Button floating small node="button" waves="light">
-            M
-          </Button>
-          &nbsp;&nbsp;
-          <Button floating small node="button" waves="light">
-            T
-          </Button>
-          &nbsp;&nbsp;
-          <Button floating small node="button" waves="light">
-            W
-          </Button>
-          &nbsp;&nbsp;
-          <Button floating small node="button" waves="light">
-            T
-          </Button>
-          &nbsp;&nbsp;
-          <Button className="disabled" floating small node="button" waves="light">
-            F
-          </Button>
-          &nbsp;&nbsp;
-          <Button className="disabled" floating small node="button" waves="light">
-            S
-          </Button>
-          &nbsp;&nbsp;
+          <Button className={dotw === 0 ? '' : 'disabled'} floating small node="button" waves="light">S</Button>&nbsp;&nbsp;
+          <Button className={dotw === 1 ? '' : 'disabled'} floating small node="button" waves="light">M</Button>&nbsp;&nbsp;
+          <Button className={dotw === 2 ? '' : 'disabled'} floating small node="button" waves="light">T</Button>&nbsp;&nbsp;
+          <Button className={dotw === 3 ? '' : 'disabled'} floating small node="button" waves="light">W</Button>&nbsp;&nbsp;
+          <Button className={dotw === 4 ? '' : 'disabled'} floating small node="button" waves="light">T</Button>&nbsp;&nbsp;
+          <Button className={dotw === 5 ? '' : 'disabled'} floating small node="button" waves="light">F</Button>&nbsp;&nbsp;
+          <Button className={dotw === 6 ? '' : 'disabled'} floating small node="button" waves="light">S</Button>&nbsp;&nbsp;
         </Col>
       </div>
       <Button

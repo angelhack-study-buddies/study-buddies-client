@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react'
-import { RouteComponentProps } from '@reach/router'
+import React, { Fragment, useState } from 'react'
+import { RouteComponentProps, navigate } from '@reach/router'
 
 import { TextInput, Button } from 'react-materialize'
 import BackButton from '../components/back-button'
@@ -8,7 +8,7 @@ import gql from 'graphql-tag'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
 const ADD_POST = gql`
-  mutation {
+  mutation postCreate($authorID: String!, $url: String!, $hashTags: [String!]) {
     postCreate(input: {
       authorID: $authorID
       url: $url
@@ -33,28 +33,34 @@ const ADD_POST = gql`
 interface AddContentProps extends RouteComponentProps {}
 
 const AddContent: React.FC<AddContentProps> = () => {
+  const [formData, setFormData] = useState({url: '', hashTags: ''})
+
   const { data } = useQuery(gql`query { currentUser { id }}`)
   const currentUser = data?.currentUser
   const authorID = currentUser?.id
 
-  const [addPost] = useMutation(ADD_POST)
+  const [addPost] = useMutation(ADD_POST, {
+    variables: {
+      authorID,
+      url: formData.url,
+      hashTags: formData.hashTags,
+    }
+  })
 
-  let url = ''
-  let hashTags = ''
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({...formData, [e.target.id]: e.target.value})
+  }
 
   return (
     <Fragment>
       <BackButton />
-      <TextInput id="url" label="url" />
-      <TextInput id="tags" label="tags" />
-      <Button
-        onClick={() => {
-          addPost({ variables: {
-            authorID,
-            url,
-            hashTags,
-          }})
-        }}>Save</Button>
+      <TextInput id="url" label="url" value={formData.url} onChange={handleChange} />
+      <TextInput id="hashTags" label="hashTags" value={formData.hashTags} onChange={handleChange} />
+      <Button onClick={async() => {
+        await addPost()
+        setFormData({ url: '', hashTags: '' })
+        navigate(-1)
+      }}>Save</Button>
     </Fragment>
   )
 }
