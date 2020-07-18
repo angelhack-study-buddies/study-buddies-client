@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { RouteComponentProps, navigate } from '@reach/router'
 
 import { Col, Card, Icon, CardTitle, Button  } from 'react-materialize'
-import '../App.css'
+import './recommendations.css'
 
 interface RecommendationsProps extends RouteComponentProps {}
 
@@ -13,7 +13,7 @@ const Recommendations: React.FC<RecommendationsProps> = () => {
     url: 'https://chloe-codes1.gitbook.io/til/algorithm/algorithm101/01_brute-force',
   }
   return (
-    <dl>
+    <dl className="recommendations">
       <h5>Recommendations</h5>
       {Array.from(Array(4).keys()).map(n => (
         <Fragment key={n}>
