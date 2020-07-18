@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { RouteComponentProps, navigate } from '@reach/router'
 
 import { Row, Col, Button, Icon } from 'react-materialize'
@@ -10,6 +10,7 @@ import gql from 'graphql-tag'
 import './profile.css'
 import ProfileImage from '../components/profile-image'
 import BackButton from '../components/back-button'
+import Posts from '../components/posts'
 
 const CURRENT_USER = gql`
   query {
@@ -25,6 +26,7 @@ const CURRENT_USER = gql`
 interface ProfileProps extends RouteComponentProps {}
 
 const Profile: React.FC<ProfileProps> = () => {
+  const [dayOfTheWeek, setDayOfTheWeek] = useState(-1)
   const { data } = useQuery(CURRENT_USER)
   const currentUser = data?.currentUser
   const streak = currentUser?.consecutiveStudyDays?.length || 0
@@ -45,7 +47,7 @@ const Profile: React.FC<ProfileProps> = () => {
               <ProfileImage currentUser={currentUser} />
             </Col>
             <Col s={8}>
-              {currentUser ? <Follow following={99} followers={99} /> : null}
+              {currentUser ? <Follow following={currentUser.followings?.length || 0} followers={currentUser.followers?.length || 0} /> : null}
             </Col>
           </Row>
         </Row>
@@ -62,13 +64,13 @@ const Profile: React.FC<ProfileProps> = () => {
       </div>
       <div className="week">
         <Col m={12} s={6}>
-          <Button className={dotw === 0 ? '' : 'disabled'} floating small node="button" waves="light">S</Button>&nbsp;&nbsp;
-          <Button className={dotw === 1 ? '' : 'disabled'} floating small node="button" waves="light">M</Button>&nbsp;&nbsp;
-          <Button className={dotw === 2 ? '' : 'disabled'} floating small node="button" waves="light">T</Button>&nbsp;&nbsp;
-          <Button className={dotw === 3 ? '' : 'disabled'} floating small node="button" waves="light">W</Button>&nbsp;&nbsp;
-          <Button className={dotw === 4 ? '' : 'disabled'} floating small node="button" waves="light">T</Button>&nbsp;&nbsp;
-          <Button className={dotw === 5 ? '' : 'disabled'} floating small node="button" waves="light">F</Button>&nbsp;&nbsp;
-          <Button className={dotw === 6 ? '' : 'disabled'} floating small node="button" waves="light">S</Button>&nbsp;&nbsp;
+          <Button className={dotw === 0 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(0)} floating small node="button" waves="light">S</Button>&nbsp;&nbsp;
+          <Button className={dotw === 1 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(1)} floating small node="button" waves="light">M</Button>&nbsp;&nbsp;
+          <Button className={dotw === 2 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(2)} floating small node="button" waves="light">T</Button>&nbsp;&nbsp;
+          <Button className={dotw === 3 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(3)} floating small node="button" waves="light">W</Button>&nbsp;&nbsp;
+          <Button className={dotw === 4 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(4)} floating small node="button" waves="light">T</Button>&nbsp;&nbsp;
+          <Button className={dotw === 5 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(5)} floating small node="button" waves="light">F</Button>&nbsp;&nbsp;
+          <Button className={dotw === 6 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(6)} floating small node="button" waves="light">S</Button>&nbsp;&nbsp;
         </Col>
       </div>
       <Button
@@ -83,6 +85,7 @@ const Profile: React.FC<ProfileProps> = () => {
         onClick={() => navigate('/add')}
       >
       </Button>
+      {currentUser ? <Posts user={currentUser} dayOfTheWeek={dayOfTheWeek} /> : null}
     </Fragment>
   )
 }
