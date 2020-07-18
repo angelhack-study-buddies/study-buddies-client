@@ -9,7 +9,7 @@ const LogoutButton = () => {
   const client = useApolloClient()
   return (
     <Button className="LogoutButton" onClick={() => {
-      client.writeData({ data: { userIsLoggedIn: false } })
+      client.writeData({ data: { currentUser: undefined } })
       localStorage.clear()
 
       navigate(`${process.env.REACT_APP_SERVER_BASE_URL}/logout`)
