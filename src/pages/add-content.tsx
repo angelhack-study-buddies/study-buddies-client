@@ -7,6 +7,8 @@ import BackButton from '../components/back-button'
 import gql from 'graphql-tag'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
+import '../styles/default.css'
+
 const ADD_POST = gql`
   mutation postCreate($authorID: String!, $url: String!, $hashTags: [String!]) {
     postCreate(input: {
@@ -43,7 +45,7 @@ const AddContent: React.FC<AddContentProps> = () => {
     variables: {
       authorID,
       url: formData.url,
-      hashTags: formData.hashTags,
+      hashTags: formData.hashTags.split(',').map(hashTag => hashTag.trim()),
     }
   })
 
