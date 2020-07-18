@@ -3,12 +3,12 @@ import { RouteComponentProps } from '@reach/router'
 
 import { Row, Col } from 'react-materialize'
 
-import Recommendations from '../components/recommendations';
-import Favorites from '../components/favorites';
-import Follow from '../components/follow';
-import ProfileImage from '../components/profile-image';
-import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
+import Recommendations from '../components/recommendations'
+import Favorites from '../components/favorites'
+import Follow from '../components/follow'
+import ProfileImage from '../components/profile-image'
+import { useQuery } from '@apollo/react-hooks'
+import gql from 'graphql-tag'
 
 const IS_LOGGED_IN = gql`
   query IsUserLoggedIn {
@@ -28,7 +28,7 @@ const Main: React.FC<MainProps> = () => {
           <ProfileImage isLoggedIn={isLoggedIn} />
         </Col>
         <Col s={8}>
-          {isLoggedIn ? <Follow following={100} followers={100} /> : null}
+          {isLoggedIn ? <Follow following={99} followers={99} /> : null}
         </Col>
       </Row>
       <Recommendations />

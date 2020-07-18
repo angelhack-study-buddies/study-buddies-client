@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react'
-import { RouteComponentProps } from '@reach/router'
+import { RouteComponentProps, navigate } from '@reach/router'
 
-import { Col, Card, Icon, CardTitle } from 'react-materialize'
+import { Col, Card, Icon, CardTitle, Button  } from 'react-materialize'
+import '../App.css'
 
 interface RecommendationsProps extends RouteComponentProps {}
 
@@ -13,17 +14,16 @@ const Recommendations: React.FC<RecommendationsProps> = () => {
   }
   return (
     <dl>
-      <h5 style={{textAlign: 'left', marginLeft: 8}}>recommendations</h5>
+      <h5>Recommendations</h5>
       {Array.from(Array(4).keys()).map(n => (
         <Fragment key={n}>
           <Col m={6}>
             <Card 
               actions={[
-                <a key={n} href={item.url}>Go To</a>
+                <Button key={n} onClick={() => navigate(item.url)}>Go To</Button>,
               ]}
               closeIcon={<Icon>close</Icon>}
               header={<CardTitle image={item.image} />}
-              horizontal
               revealIcon={<Icon>more_vert</Icon>}
             >
               {item.title}

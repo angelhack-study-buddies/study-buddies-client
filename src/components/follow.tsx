@@ -2,6 +2,7 @@ import { RouteComponentProps } from "@reach/router"
 
 import React, { Fragment } from 'react'
 import './follow.css'
+import { Row, Col } from "react-materialize"
 
 const spanStyle = {
   color: 'gray',
@@ -15,10 +16,16 @@ interface FollowProps extends RouteComponentProps {
 const Follow: React.FC<FollowProps> = (props) => {
   return (
     <Fragment>
-      <span style={spanStyle}><b>following</b></span>
-      <span><b>{props.following}</b></span>
-      <span style={spanStyle}><b>followers</b></span>
-      <span><b>{props.followers}</b></span>
+      <dl className="follow">
+        <Col>
+          <Row><span><b>{props.following}</b></span></Row>
+          <Row><span style={spanStyle}><b>Following</b></span></Row>
+        </Col>
+        <Col>
+          <Row><span><b>{props.followers}</b></span></Row>
+          <Row><span style={spanStyle}><b>Followers</b></span></Row>
+        </Col>
+      </dl>
     </Fragment>
   )
 }
