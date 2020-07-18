@@ -4,39 +4,57 @@ import { RouteComponentProps, navigate } from '@reach/router'
 import { Row, Col, Button, Icon } from 'react-materialize'
 import Follow from '../components/follow'
 import LogoutButton from '../components/logout-button'
+import { useQuery } from '@apollo/react-hooks'
+import gql from 'graphql-tag'
 
-const imageStyle = {
-  borderRadius: 64, verticalAlign: 'middle'
-}
+import './profile.css'
+import ProfileImage from '../components/profile-image'
+
+const CURRENT_USER = gql`
+  query {
+    currentUser {
+      id
+      name
+      profileURL
+      consecutiveStudyDays
+    }
+  }
+`
 
 interface ProfileProps extends RouteComponentProps {}
 
 const Profile: React.FC<ProfileProps> = () => {
-  const props = {
-    streak: 30,
-  }
-
+  const { data } = useQuery(CURRENT_USER)
+  const currentUser = data?.currentUser
+  const streak = currentUser?.consecutiveStudyDays?.length || 5
   return (
     <Fragment>
       <div style={{
         position: 'absolute', top: 0, left: 0,
       }}>
-        <Button onClick={() => navigate(-1)}>&lt;</Button>
+        <Button className="backBtn" icon={<i className="material-icons">chevron_left</i>} onClick={() => navigate(-1)}></Button>
       </div>
-      <Row>
-        <Col m={12} s={6}>
-          <img src={'https://avatars2.githubusercontent.com/u/53922851?s=128'} style={imageStyle} alt="avatar" />
-          <Follow following={100} followers={100} />
-        </Col>
-      </Row>
+      <dl style={{marginTop: 20}}>
+        <Row>
+          <Row>
+            <Col s={4}>
+              <ProfileImage currentUser={currentUser} />
+            </Col>
+            <Col s={8}>
+              {currentUser ? <Follow following={99} followers={99} /> : null}
+            </Col>
+          </Row>
+        </Row>
+      </dl>
       <Row>
         <LogoutButton />
       </Row>
-      <div className="Streak">
+      <hr style={{ height: 12, backgroundColor: '#F2F3F6', borderStyle: 'none' }} />
+      <div className="streak">
         <Row>
-          <b>Streak</b>
+          <p>Streak</p>
         </Row>
-        <Row>{props.streak} day(s)</Row>
+        <Row className="days">{streak!} Day(s)</Row>
       </div>
       <div className="week">
         <Col m={12} s={6}>
@@ -60,18 +78,17 @@ const Profile: React.FC<ProfileProps> = () => {
             T
           </Button>
           &nbsp;&nbsp;
-          <Button floating small node="button" waves="light">
+          <Button className="disabled" floating small node="button" waves="light">
             F
           </Button>
           &nbsp;&nbsp;
-          <Button floating small node="button" waves="light">
+          <Button className="disabled" floating small node="button" waves="light">
             S
           </Button>
           &nbsp;&nbsp;
         </Col>
       </div>
       <Button
-        className="green"
         fab={{
           direction: 'top',
           toolbarEnabled: true
