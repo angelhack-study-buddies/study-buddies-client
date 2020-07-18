@@ -28,14 +28,7 @@ client
       }
     `,
   })
-  .then(result => {
-    console.log(result)
-    client.writeData({
-      data: {
-        isLoggedIn: result.data.helloWorld !== '👋 Hello world! 👋',
-      }
-    })
-  })
+  .then(result => console.log(result))
 
 ReactDOM.render(
   <ApolloProvider client={client}>

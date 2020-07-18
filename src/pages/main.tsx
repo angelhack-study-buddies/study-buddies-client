@@ -12,7 +12,7 @@ import gql from 'graphql-tag';
 
 const IS_LOGGED_IN = gql`
   query IsUserLoggedIn {
-    isLoggedIn
+    userIsLoggedIn
   }
 `
 
@@ -20,7 +20,7 @@ interface MainProps extends RouteComponentProps {}
 
 const Main: React.FC<MainProps> = () => {
   const { data } = useQuery(IS_LOGGED_IN)
-  const isLoggedIn = data && data.isLoggedIn
+  const isLoggedIn = data?.userIsLoggedIn
   return (
     <Fragment>
       <Row>
