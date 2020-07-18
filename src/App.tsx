@@ -7,7 +7,7 @@ import Pages from './pages'
 import { useHelloWorldQuery } from './generated/graphql'
 
 const App = () => {
-  const { data, loading, error } = useHelloWorldQuery()
+  const { loading, error } = useHelloWorldQuery()
 
   if (loading) {
     return (
@@ -21,7 +21,6 @@ const App = () => {
 
   return (
     <div className="App">
-      {data?.helloWorld}
       <header>
         <img src={logo} className="App-logo" alt="logo" />
       </header>
