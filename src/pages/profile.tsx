@@ -9,6 +9,7 @@ import gql from 'graphql-tag'
 
 import './profile.css'
 import ProfileImage from '../components/profile-image'
+import BackButton from '../components/back-button'
 
 const CURRENT_USER = gql`
   query {
@@ -29,11 +30,7 @@ const Profile: React.FC<ProfileProps> = () => {
   const streak = currentUser?.consecutiveStudyDays?.length || 5
   return (
     <Fragment>
-      <div style={{
-        position: 'absolute', top: 0, left: 0,
-      }}>
-        <Button className="backBtn" icon={<i className="material-icons">chevron_left</i>} onClick={() => navigate(-1)}></Button>
-      </div>
+      <BackButton />
       <dl style={{marginTop: 20}}>
         <Row>
           <Row>
