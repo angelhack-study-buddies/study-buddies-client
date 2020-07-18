@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react'
-import { RouteComponentProps } from '@reach/router'
+import { RouteComponentProps, navigate } from '@reach/router'
 
-import { Col, Card, Icon, CardTitle } from 'react-materialize'
+import { Col, Card, Icon, CardTitle, Button  } from 'react-materialize'
+import './list.css'
 
 interface FavoritesProps extends RouteComponentProps {}
 
@@ -12,19 +13,25 @@ const Favorites: React.FC<FavoritesProps> = () => {
     url: 'https://chloe-codes1.gitbook.io/til/algorithm/algorithm101/01_brute-force',
   }
   return (
-    <dl>
-      <h5 style={{textAlign: 'left', marginLeft: 8}}>favorites</h5>
+    <dl className="favorites">
+      <h5>Favorites</h5>
       {Array.from(Array(4).keys()).map(n => (
         <Fragment key={n}>
           <Col m={6}>
             <Card 
               actions={[
-                <a key={n} href={item.url}>Go To</a>
+                <Button key={n} onClick={() => navigate(item.url)}>Go To</Button>,
               ]}
-              closeIcon={<Icon>close</Icon>}
-              header={<CardTitle image={item.image} />}
-              horizontal
-              revealIcon={<Icon>more_vert</Icon>}
+              header={
+                <Fragment>
+                  <div
+                    onClick={() => alert('like!')}
+                    style={{position: 'absolute', right: 32, top: 156, zIndex: 1}}>
+                    <Icon>favorite_border</Icon>
+                  </div>
+                  <CardTitle image={item.image} />
+                </Fragment>
+              }
             >
               {item.title}
             </Card>

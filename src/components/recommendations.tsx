@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { RouteComponentProps, navigate } from '@reach/router'
 
 import { Col, Card, Icon, CardTitle, Button  } from 'react-materialize'
-import './recommendations.css'
+import './list.css'
 
 interface RecommendationsProps extends RouteComponentProps {}
 
@@ -22,11 +22,18 @@ const Recommendations: React.FC<RecommendationsProps> = () => {
               actions={[
                 <Button key={n} onClick={() => navigate(item.url)}>Go To</Button>,
               ]}
-              closeIcon={<Icon>close</Icon>}
-              header={<CardTitle image={item.image} />}
-              revealIcon={<Icon>more_vert</Icon>}
+              header={
+                <Fragment>
+                  <div
+                    onClick={() => alert('like!')}
+                    style={{position: 'absolute', right: 32, top: 156, zIndex: 1}}>
+                    <Icon>favorite_border</Icon>
+                  </div>
+                  <CardTitle image={item.image} />
+                </Fragment>
+              }
             >
-              {item.title}
+              <p>{item.title}</p>
             </Card>
           </Col>
         </Fragment>

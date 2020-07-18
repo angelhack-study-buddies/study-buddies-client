@@ -40,7 +40,6 @@ const Main: React.FC<MainProps> = () => {
       </dl>
       <Recommendations />
       <Favorites />
-      main
     </Fragment>
   )
 }
