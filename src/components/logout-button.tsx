@@ -3,10 +3,12 @@ import { Button } from 'react-materialize'
 import { useApolloClient } from '@apollo/react-hooks'
 import { navigate } from '@reach/router'
 
+import './logout-button.css';
+
 const LogoutButton = () => {
   const client = useApolloClient()
   return (
-    <Button onClick={() => {
+    <Button className="LogoutButton" onClick={() => {
       client.writeData({ data: { userIsLoggedIn: false } })
       localStorage.clear()
 
