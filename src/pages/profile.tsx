@@ -4,7 +4,7 @@ import { RouteComponentProps, navigate } from '@reach/router'
 import { Row, Col, Button, Icon } from 'react-materialize'
 import Follow from '../components/follow'
 import LogoutButton from '../components/logout-button'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 import './profile.css'
@@ -30,6 +30,16 @@ const USER = gql`
       name
       profileURL
       consecutiveStudyDays
+      followers {
+        id
+        name
+        profileURL
+      }
+      followings {
+        id
+        name
+        profileURL
+      }
       posts {
         id
         author {
@@ -45,6 +55,12 @@ const USER = gql`
         createdAt
       }
     }
+  }
+`
+
+const FOLLOW = gql`
+  mutation follow($followerID: ID!) {
+    follow(followerID: $followerID)
   }
 `
 
@@ -67,6 +83,12 @@ const Profile: React.FC<ProfileProps> = (props) => {
     dotw = lastDay.getDay();
     // Sunday - Saturday : 0 - 6
   }
+
+  const [follow] = useMutation(FOLLOW, {
+    variables: {
+      followerID: user?.id
+    }
+  })
   return (
     <Fragment>
       <BackButton />
@@ -75,9 +97,15 @@ const Profile: React.FC<ProfileProps> = (props) => {
           <Row>
             <Col s={4}>
               <ProfileImage user={user} />
-              {currentUser?.id !== user?.id ? <span style={{position: "relative", top: -20, left: 40, zIndex: 1}}>
-                {currentUser?.followers.includes(user?.id) ? <Icon>add_circle</Icon> : <Icon>add_circle_outline</Icon>}
-              </span> : null}
+              {currentUser?.id !== user?.id
+                ? <span
+                    style={{position: "relative", top: -20, left: 40, zIndex: 1}}
+                    onClick={async() => follow()}
+                  >
+                  {currentUser?.followers.includes(user?.id)
+                    ? <Icon>add_circle</Icon>
+                    : <Icon>add_circle_outline</Icon>}</span>
+                : null}
             </Col>
             <Col s={8}>
               {user ? <Follow following={user.followings?.length || 0} followers={user.followers?.length || 0} /> : null}
