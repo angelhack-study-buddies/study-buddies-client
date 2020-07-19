@@ -18,7 +18,7 @@ interface FollowListProps extends RouteComponentProps {
 
 const FollowList: React.FC<FollowListProps> = (props) => {
   const { data } = useQuery(gql`
-    query user($userid: ID!) {
+    query FollowList_User($userid: ID!) {
       user(id: $userid) {
         followers {
           id
