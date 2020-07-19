@@ -10,7 +10,6 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import App from './App'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { gql } from 'apollo-boost'
 
 const client = new ApolloClient({
   link: new HttpLink({
@@ -19,16 +18,6 @@ const client = new ApolloClient({
   }),
   cache: new InMemoryCache(),
 })
-
-client
-  .query({
-    query: gql`
-      {
-        helloWorld
-      }
-    `,
-  })
-  .then(result => console.log(result))
 
 ReactDOM.render(
   <ApolloProvider client={client}>

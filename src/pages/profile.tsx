@@ -115,7 +115,7 @@ const Profile: React.FC<ProfileProps> = (props) => {
                 : null}
             </Col>
             <Col s={8}>
-              {user ? <Follow following={user.followings?.length || 0} followers={user.followers?.length || 0} /> : null}
+              {user ? <Follow userid={user.id} following={user.followings?.length || 0} followers={user.followers?.length || 0} /> : null}
             </Col>
           </Row>
         </Row>
