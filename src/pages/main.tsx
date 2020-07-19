@@ -17,6 +17,20 @@ const CURRENT_USER = gql`
       name
       profileURL
       consecutiveStudyDays
+      recommendations {
+        id
+        author {
+          id
+          name
+          email
+          profileURL
+        }
+        url
+        title
+        description
+        previewImage
+        createdAt
+      }
       followers {
         id
         name
@@ -50,8 +64,8 @@ const Main: React.FC<MainProps> = () => {
           </Col>
         </Row>
       </dl>
-      <Recommendations />
-      <Favorites />
+      <Recommendations items={currentUser?.recommendations} />
+      {/* <Favorites /> */}
     </Fragment>
   )
 }

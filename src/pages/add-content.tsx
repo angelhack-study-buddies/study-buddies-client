@@ -5,7 +5,7 @@ import { TextInput, Button } from 'react-materialize'
 import BackButton from '../components/back-button'
 
 import gql from 'graphql-tag'
-import { useQuery, useMutation } from '@apollo/react-hooks'
+import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks'
 
 import '../styles/default.css'
 

@@ -3,31 +3,28 @@ import { RouteComponentProps, navigate } from '@reach/router'
 
 import { Col, Card, Icon, CardTitle, Button  } from 'react-materialize'
 import './list.css'
+import { Post } from '../generated/graphql'
 
-interface RecommendationsProps extends RouteComponentProps {}
+interface RecommendationsProps extends RouteComponentProps {
+  items: [Post]
+}
 
-const Recommendations: React.FC<RecommendationsProps> = () => {
-  const item = {
-    title: 'Brute-Force',
-    image: 'https://app.gitbook.com/share/space/thumbnail/-M6ivT9AfNVmiT1Q6B2U.png',
-    url: 'https://chloe-codes1.gitbook.io/til/algorithm/algorithm101/01_brute-force',
-    authorID: '106261751045546485787',
-  }
+const Recommendations: React.FC<RecommendationsProps> = (props) => {
   return (
     <dl className="recommendations">
       <h5>Recommendations</h5>
-      {Array.from(Array(4).keys()).map(n => (
-        <Fragment key={n}>
+      {props.items?.map(item => (
+        <Fragment key={item.id}>
           <Col m={6}>
             <Card 
               actions={[
-                <Button key={n} onClick={() => navigate(item.url)}>Go To</Button>,
+                <Button key={item.id} onClick={() => navigate(item.url!)}>Go To</Button>,
               ]}
               header={
                 <Fragment>
-                  <CardTitle image={item.image} />
+                  <CardTitle image={item.previewImage!} />
                   <div className="icons">
-                    <span onClick={() => navigate(`/profile/${item.authorID}`)}><Icon>account_circle</Icon></span>
+                    <span onClick={() => navigate(`/profile/${item.author?.id}`)}><Icon>account_circle</Icon></span>
                     <span onClick={() => alert('like!')}><Icon>favorite_border</Icon></span>
                   </div>
                 </Fragment>
