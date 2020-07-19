@@ -1,5 +1,12 @@
+@media (min-width: 600px) {
+  .App {
+    width: 600px;
+  }
+}
+
 .App {
   text-align: center;
+  margin: 0 auto;
 }
 
 .App-logo {
