@@ -61,7 +61,12 @@ const Main: React.FC<MainProps> = () => {
             <ProfileImage user={currentUser} />
           </Col>
           <Col s={8}>
-            {currentUser ? <Follow following={following} followers={followers} /> : null}
+            {currentUser
+              ? <Follow
+                userid={currentUser.id}
+                following={following}
+                followers={followers} />
+              : null}
           </Col>
         </Row>
       </dl>
