@@ -16,27 +16,57 @@ const CURRENT_USER = gql`
   query {
     currentUser {
       id
-      name
-      profileURL
-      consecutiveStudyDays
+      followers {
+        id
+      }
     }
   }
 `
 
-interface ProfileProps extends RouteComponentProps {}
+const USER = gql`
+  query user($id: ID!) {
+    user(id: $id) {
+      id
+      name
+      profileURL
+      consecutiveStudyDays
+      posts {
+        id
+        author {
+          id
+          name
+          email
+          profileURL
+        }
+        url
+        title
+        description
+        previewImage
+        createdAt
+      }
+    }
+  }
+`
 
-const Profile: React.FC<ProfileProps> = () => {
+interface ProfileProps extends RouteComponentProps {
+  id?: string
+}
+
+const Profile: React.FC<ProfileProps> = (props) => {
   const [dayOfTheWeek, setDayOfTheWeek] = useState(-1)
   const { data } = useQuery(CURRENT_USER)
   const currentUser = data?.currentUser
-  const streak = currentUser?.consecutiveStudyDays?.length || 0
+
+  const { data: userData } = useQuery(USER, { variables: { id: props.id } })
+  const user = userData?.user
+
+  const streak = user?.consecutiveStudyDays?.length || 0
   let dotw = -1
-  if (currentUser?.consecutiveStudyDays) {
-    const lastDay = new Date(currentUser.consecutiveStudyDays);
+  if (user?.consecutiveStudyDays) {
+    const lastDay = new Date(user.consecutiveStudyDays);
     dotw = lastDay.getDay();
     // Sunday - Saturday : 0 - 6
   }
-
   return (
     <Fragment>
       <BackButton />
@@ -44,10 +74,13 @@ const Profile: React.FC<ProfileProps> = () => {
         <Row>
           <Row>
             <Col s={4}>
-              <ProfileImage currentUser={currentUser} />
+              <ProfileImage user={user} />
+              {currentUser?.id !== user?.id ? <span style={{position: "relative", top: -20, left: 40, zIndex: 1}}>
+                {currentUser?.followers.includes(user?.id) ? <Icon>add_circle</Icon> : <Icon>add_circle_outline</Icon>}
+              </span> : null}
             </Col>
             <Col s={8}>
-              {currentUser ? <Follow following={currentUser.followings?.length || 0} followers={currentUser.followers?.length || 0} /> : null}
+              {user ? <Follow following={user.followings?.length || 0} followers={user.followers?.length || 0} /> : null}
             </Col>
           </Row>
         </Row>
@@ -73,7 +106,7 @@ const Profile: React.FC<ProfileProps> = () => {
           <Button className={dotw === 6 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(6)} floating small node="button" waves="light">S</Button>&nbsp;&nbsp;
         </Col>
       </div>
-      <Button
+      {currentUser?.id === user?.id ? <Button
         fab={{
           direction: 'top',
           toolbarEnabled: true
@@ -84,8 +117,8 @@ const Profile: React.FC<ProfileProps> = () => {
         node="button"
         onClick={() => navigate('/add')}
       >
-      </Button>
-      {currentUser ? <Posts user={currentUser} dayOfTheWeek={dayOfTheWeek} /> : null}
+      </Button> : null}
+      {user ? <Posts user={user} dayOfTheWeek={dayOfTheWeek} /> : null}
     </Fragment>
   )
 }
