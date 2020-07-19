@@ -3,14 +3,9 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 6vmin;
   pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  margin: 4vmin 0;
 }
 
 .App-header {
@@ -35,4 +30,30 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+h5 {
+  margin-left: 12px;
+  text-align: left;
+  color: #333;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 24px;
+}
+
+.card .card-image {
+  padding: 12px;
+}
+
+.card .card-image img {
+  border-radius: 12px;
+}
+
+/* profile-image */
+.btn-floating.btn-large {
+  width: 92px !important;
+  height: 92px !important;
+  border: 1px solid black;
 }

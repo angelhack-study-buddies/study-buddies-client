@@ -1,0 +1,11 @@
+.recommendations .btn, .favorites .btn {
+    color: white;
+    background-color: #005DE9;
+    border-radius: 6px;
+    width: 320px;
+}
+
+.recommendations .card .icons, .favorites .card .icons {
+    float: right;
+    margin-right: 2rem;
+}
