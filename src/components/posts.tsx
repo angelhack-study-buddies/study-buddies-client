@@ -2,53 +2,26 @@ import React, { Fragment } from 'react'
 import { RouteComponentProps, navigate } from '@reach/router'
 
 import { Col, Card, Icon, CardTitle, Button  } from 'react-materialize'
-import { Post, User } from '../generated/graphql'
-import gql from 'graphql-tag'
+import { Post } from '../generated/graphql'
 
 import './list.css'
-import { useQuery } from '@apollo/react-hooks'
-
-const POSTS = gql`
-  query userPosts($id: ID!) {
-    user(id: $id) {
-      posts {
-        id
-        author {
-          id
-          name
-          email
-          profileURL
-        }
-        url
-        title
-        description
-        previewImage
-        createdAt
-      }
-    }
-  }
-`
 
 interface PostsProps extends RouteComponentProps {
-  user: User
+  user: any
   dayOfTheWeek: number
 }
 
 const Posts: React.FC<PostsProps> = (props) => {
-  const user = props?.user
-
-  let dPosts = undefined
-  const { data } = useQuery(POSTS, {
-    variables: { id: user?.id }
-  })
-  dPosts = data?.user?.posts.filter((post: Post) => {
+  let dPosts: [Post?] = []
+  dPosts = props.user?.posts.filter((post: Post) => {
     const day = new Date(post.createdAt)
     return props.dayOfTheWeek === day.getDay();
   })
   
   return (
     <dl className="posts">
-      {dPosts?.map((post: Post) => (
+      {dPosts?.map((post?: Post) => (
+        !post ? null :
         <Fragment key={post.id}>
           <Col m={6}>
             <Card 

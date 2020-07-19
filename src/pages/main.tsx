@@ -43,7 +43,7 @@ const Main: React.FC<MainProps> = () => {
       <dl style={{marginTop: 20}}>
         <Row>
           <Col s={4}>
-            <ProfileImage currentUser={currentUser} />
+            <ProfileImage user={currentUser} />
           </Col>
           <Col s={8}>
             {currentUser ? <Follow following={following} followers={followers} /> : null}

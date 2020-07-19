@@ -6,17 +6,17 @@ import avatar from './avatar-person.svg'
 import { User } from '../generated/graphql'
 
 interface ProfileImageProps extends RouteComponentProps {
-  currentUser: User
+  user: User
 }
 
 const ProfileImage: React.FC<ProfileImageProps> = (props) => {
-  const { currentUser } = props
-  const profileURL = currentUser?.profileURL
+  const { user } = props
+  const profileURL = user?.profileURL
   return (
-    props.currentUser
+    props.user
       ? <Button
           icon={<img width={92} src={profileURL!} alt="avatar" />}
-          onClick={() => navigate('/profile')}
+          onClick={() => navigate(`/profile/${user?.id}`)}
           floating
           large
           node="button"
