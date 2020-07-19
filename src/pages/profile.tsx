@@ -63,7 +63,7 @@ const Profile: React.FC<ProfileProps> = (props) => {
   const streak = user?.consecutiveStudyDays?.length || 0
   let dotw = -1
   if (user?.consecutiveStudyDays) {
-    const lastDay = new Date(user.consecutiveStudyDays);
+    const lastDay = new Date(user.consecutiveStudyDays[user.consecutiveStudyDays.length - 1]);
     dotw = lastDay.getDay();
     // Sunday - Saturday : 0 - 6
   }
@@ -97,13 +97,13 @@ const Profile: React.FC<ProfileProps> = (props) => {
       </div>
       <div className="week">
         <Col m={12} s={6}>
-          <Button className={dotw === 0 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(0)} floating small node="button" waves="light">S</Button>&nbsp;&nbsp;
-          <Button className={dotw === 1 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(1)} floating small node="button" waves="light">M</Button>&nbsp;&nbsp;
-          <Button className={dotw === 2 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(2)} floating small node="button" waves="light">T</Button>&nbsp;&nbsp;
-          <Button className={dotw === 3 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(3)} floating small node="button" waves="light">W</Button>&nbsp;&nbsp;
-          <Button className={dotw === 4 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(4)} floating small node="button" waves="light">T</Button>&nbsp;&nbsp;
-          <Button className={dotw === 5 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(5)} floating small node="button" waves="light">F</Button>&nbsp;&nbsp;
-          <Button className={dotw === 6 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(6)} floating small node="button" waves="light">S</Button>&nbsp;&nbsp;
+          <Button className={dotw >= 0 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(0)} floating small node="button" waves="light">S</Button>&nbsp;&nbsp;
+          <Button className={dotw >= 1 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(1)} floating small node="button" waves="light">M</Button>&nbsp;&nbsp;
+          <Button className={dotw >= 2 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(2)} floating small node="button" waves="light">T</Button>&nbsp;&nbsp;
+          <Button className={dotw >= 3 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(3)} floating small node="button" waves="light">W</Button>&nbsp;&nbsp;
+          <Button className={dotw >= 4 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(4)} floating small node="button" waves="light">T</Button>&nbsp;&nbsp;
+          <Button className={dotw >= 5 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(5)} floating small node="button" waves="light">F</Button>&nbsp;&nbsp;
+          <Button className={dotw >= 6 ? '' : 'disabled'} onClick={() => setDayOfTheWeek(6)} floating small node="button" waves="light">S</Button>&nbsp;&nbsp;
         </Col>
       </div>
       {currentUser?.id === user?.id ? <Button
