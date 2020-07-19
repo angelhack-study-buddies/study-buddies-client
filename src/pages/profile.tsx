@@ -16,7 +16,7 @@ const CURRENT_USER = gql`
   query currentUser {
     currentUser {
       id
-      followers {
+      followings {
         id
       }
     }
@@ -59,8 +59,8 @@ const USER = gql`
 `
 
 const FOLLOW = gql`
-  mutation follow($followerID: ID!) {
-    follow(followerID: $followerID)
+  mutation follow($followingID: ID!) {
+    follow(followingID: $followingID)
   }
 `
 
@@ -76,6 +76,8 @@ const Profile: React.FC<ProfileProps> = (props) => {
   const { data: userData } = useQuery(USER, { variables: { id: props.id } })
   const user = userData?.user
 
+  const [boolFollow, setBoolfollow] = useState(currentUser?.followings.includes(user?.id))
+
   const streak = user?.consecutiveStudyDays?.length || 0
   let dotw = -1
   if (user?.consecutiveStudyDays) {
@@ -86,7 +88,7 @@ const Profile: React.FC<ProfileProps> = (props) => {
 
   const [follow] = useMutation(FOLLOW, {
     variables: {
-      followerID: user?.id
+      followingID: user?.id
     }
   })
   return (
@@ -100,9 +102,14 @@ const Profile: React.FC<ProfileProps> = (props) => {
               {currentUser?.id !== user?.id
                 ? <span
                     style={{position: "relative", top: -20, left: 40, zIndex: 1}}
-                    onClick={async() => follow()}
+                    onClick={
+                      async() => {
+                        follow()
+                        setBoolfollow(!boolFollow)
+                      }
+                    }
                   >
-                  {currentUser?.followers.includes(user?.id)
+                  {boolFollow
                     ? <Icon>add_circle</Icon>
                     : <Icon>add_circle_outline</Icon>}</span>
                 : null}
