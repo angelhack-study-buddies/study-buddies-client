@@ -4,7 +4,7 @@ import { RouteComponentProps, navigate } from '@reach/router'
 import { Row, Col, Button, Icon } from 'react-materialize'
 import Follow from '../components/follow'
 import LogoutButton from '../components/logout-button'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 import './profile.css'
@@ -16,7 +16,7 @@ const CURRENT_USER = gql`
   query currentUser {
     currentUser {
       id
-      followers {
+      followings {
         id
       }
     }
@@ -30,6 +30,16 @@ const USER = gql`
       name
       profileURL
       consecutiveStudyDays
+      followers {
+        id
+        name
+        profileURL
+      }
+      followings {
+        id
+        name
+        profileURL
+      }
       posts {
         id
         author {
@@ -48,6 +58,12 @@ const USER = gql`
   }
 `
 
+const FOLLOW = gql`
+  mutation follow($followingID: ID!) {
+    follow(followingID: $followingID)
+  }
+`
+
 interface ProfileProps extends RouteComponentProps {
   id?: string
 }
@@ -60,6 +76,8 @@ const Profile: React.FC<ProfileProps> = (props) => {
   const { data: userData } = useQuery(USER, { variables: { id: props.id } })
   const user = userData?.user
 
+  const [boolFollow, setBoolfollow] = useState(currentUser?.followings.includes(user?.id))
+
   const streak = user?.consecutiveStudyDays?.length || 0
   let dotw = -1
   if (user?.consecutiveStudyDays) {
@@ -67,6 +85,12 @@ const Profile: React.FC<ProfileProps> = (props) => {
     dotw = lastDay.getDay();
     // Sunday - Saturday : 0 - 6
   }
+
+  const [follow] = useMutation(FOLLOW, {
+    variables: {
+      followingID: user?.id
+    }
+  })
   return (
     <Fragment>
       <BackButton />
@@ -75,9 +99,20 @@ const Profile: React.FC<ProfileProps> = (props) => {
           <Row>
             <Col s={4}>
               <ProfileImage user={user} />
-              {currentUser?.id !== user?.id ? <span style={{position: "relative", top: -20, left: 40, zIndex: 1}}>
-                {currentUser?.followers.includes(user?.id) ? <Icon>add_circle</Icon> : <Icon>add_circle_outline</Icon>}
-              </span> : null}
+              {currentUser?.id !== user?.id
+                ? <span
+                    style={{position: "relative", top: -20, left: 40, zIndex: 1}}
+                    onClick={
+                      async() => {
+                        follow()
+                        setBoolfollow(!boolFollow)
+                      }
+                    }
+                  >
+                  {boolFollow
+                    ? <Icon>add_circle</Icon>
+                    : <Icon>add_circle_outline</Icon>}</span>
+                : null}
             </Col>
             <Col s={8}>
               {user ? <Follow following={user.followings?.length || 0} followers={user.followers?.length || 0} /> : null}

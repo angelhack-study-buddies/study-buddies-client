@@ -4,7 +4,6 @@ import { RouteComponentProps } from '@reach/router'
 import { Row, Col } from 'react-materialize'
 
 import Recommendations from '../components/recommendations'
-import Favorites from '../components/favorites'
 import Follow from '../components/follow'
 import ProfileImage from '../components/profile-image'
 import { useQuery } from '@apollo/react-hooks'
@@ -17,6 +16,22 @@ const CURRENT_USER = gql`
       name
       profileURL
       consecutiveStudyDays
+      recommendations {
+        id
+        author {
+          id
+          name
+          email
+          profileURL
+        }
+        url
+        isLiked
+        likeCount
+        title
+        description
+        previewImage
+        createdAt
+      }
       followers {
         id
         name
@@ -50,8 +65,8 @@ const Main: React.FC<MainProps> = () => {
           </Col>
         </Row>
       </dl>
-      <Recommendations />
-      <Favorites />
+      <Recommendations items={currentUser?.recommendations} />
+      {/* <Favorites /> */}
     </Fragment>
   )
 }
