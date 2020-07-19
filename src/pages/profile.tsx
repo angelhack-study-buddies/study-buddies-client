@@ -13,7 +13,7 @@ import BackButton from '../components/back-button'
 import Posts from '../components/posts'
 
 const CURRENT_USER = gql`
-  query {
+  query currentUser {
     currentUser {
       id
       followers {

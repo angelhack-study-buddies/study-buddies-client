@@ -37,7 +37,7 @@ interface AddContentProps extends RouteComponentProps {}
 const AddContent: React.FC<AddContentProps> = () => {
   const [formData, setFormData] = useState({url: '', hashTags: ''})
 
-  const { data } = useQuery(gql`query { currentUser { id }}`)
+  const { data } = useQuery(gql`query AddContent_CurrentUser { currentUser { id }}`)
   const currentUser = data?.currentUser
   const authorID = currentUser?.id
 
